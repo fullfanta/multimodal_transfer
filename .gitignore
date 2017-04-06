@@ -1,6 +1,7 @@
 *.pyc
 *.out
 *.npz
+*.swp
 result
 data
 summary

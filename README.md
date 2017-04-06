@@ -55,3 +55,7 @@ It generates hierarchical stylized images and save them to 'test_images/jolie_ou
 |Cheez|<img src='test_images/cheez.png' width='256px'>|<img src='test_images/cheez_output_1.jpg' width='256px'>|<img src='test_images/cheez_output_2.jpg' width='256px'>|<img src='test_images/cheez_output_3.jpg' width='256px'>|
 |Herb|<img src='test_images/herb.png' width='256px'>|<img src='test_images/herb_output_1.jpg' width='256px'>|<img src='test_images/herb_output_2.jpg' width='256px'>|<img src='test_images/herb_output_3.jpg' width='256px'>|
 
+
+## Acknowledgement
+- For instance normalization, I refer 'https://github.com/ghwatson/faststyle'.
+- For pretrained VGG16 network, I refer 'https://www.cs.toronto.edu/~frossard/post/vgg16/'.
