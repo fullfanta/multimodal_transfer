@@ -1,36 +1,39 @@
 # Style transfer
-This is tensorflow implementation of 'Perceptual Losses for Real-Time Style Transfer and Super-Resolution'.
+This is tensorflow implementation of ['Multimodal Transfer: A Hierarchical Deep Convolutional Neural Network for Fast Artistic Style Transfer'](https://arxiv.org/abs/1612.01895) which generates stylized image in high resulution such as 1024 pixels.
+
 
 ## Download program
 ```
-$ git clone https://github.com/fullfanta/real_time_style_transfer.git
+$ git clone https://github.com/fullfanta/multimodal_style_transfer.git
 ```
 
-## Download training data
+
+## Train
+To train network, I use MS coco dataset.
 ```
 $ cd real_time_style_transfer
 $ sh get_coco.sh
 ```
 
-## Download vgg16 model
+For stylization, pretrained VGG16 is necessary.
 ```
 $ sh get_vgg16.sh
 ```
 
-## Train
+Then training is *SIMPLE*.
 ```
 $ python train.py
 ```
-If you have multiple GPU cards, use CUDA_VISIBLE_DEVICES to specify GPU card.
-Trained model is in summary.
-To adjust weights of content loss and style loss, you can set the parameter alpha. loss equation is alpha * content loss + (1 - alpha) * style loss. Default is 0.1
+- If you have multiple GPU cards, use CUDA_VISIBLE_DEVICES to specify GPU card.
+- Trained model is in summary.
+
 During training, you can see generated images through tensorboard.
 ```
 $ tensorboard --logdir=summary
 ```
 
 
-## Freeze model
+### Freeze model
 ```
 $ sh freeze.sh
 ```
@@ -38,18 +41,17 @@ It generates pb file which contains weights as contant.
 
 ## Test
 ```
-$ python stylizer.py --model=models/starry_night.pb --input_image=test_images/Aaron_Eckhart_0001.jpg
+$ python stylize.py --model=models/starry_night.pb --input_image=test_images/jolie.jpg
 ```
-It generates stylized image and save it to 'test_images/Aaron_Eckart_0001_output.jpg
+It generates hierarchical stylized images and save them to 'test_images/jolie_output_1.jpg', 'test_images/jolie_output_2.jpg', and 'test_images/jolie_output_3.jpg'. Their sizes are 256, 512 and 1024 in short edge.
 
 
 ## Examples
-|    | Input | Output |
-|----|-------|--------|
-|Aaron Echart|<img src='test_images/Aaron_Eckhart_0001.jpg' width='256px'>|<img src='test_images/Aaron_Eckhart_0001_output.jpg' width='256px'>|
-|Angelina Jolie|<img src='test_images/jolie.jpg' width='256px'>|<img src='test_images/jolie_output.jpg' width='256px'>|
-|Dinosour|<img src='test_images/dinosour.png' width='256px'>|<img src='test_images/dinosour_output.jpg' width='256px'>|
-|Ryan|<img src='test_images/ryan.png' width='256px'>|<img src='test_images/ryan_output.jpg' width='256px'>|
-|Herb|<img src='test_images/herb.png' width='256px'>|<img src='test_images/herb_output.jpg' width='256px'>|
-|Cheez|<img src='test_images/cheez.png' width='256px'>|<img src='test_images/cheez_output.jpg' width='256px'>|
-# multimodal_transfer
+|    | Input | Output(256px) | Output(512px) | Output(1024px) |
+|----|-------|---------------|---------------|----------------|
+|Angelina Jolie|<img src='test_images/jolie.jpg' width='256px'>|<img src='test_images/jolie_output_1.jpg' width='256px'>|<img src='test_images/jolie_output_2.jpg' width='256px'>|<img src='test_images/jolie_output_3.jpg' width='256px'>|
+|Dinosour|<img src='test_images/dinosour.png' width='256px'>|<img src='test_images/dinosour_output_1.jpg' width='256px'>|<img src='test_images/dinosour_output_2.jpg' width='256px'>|<img src='test_images/dinosour_output_3.jpg' width='256px'>|
+|Ryan|<img src='test_images/ryan.png' width='256px'>|<img src='test_images/ryan_output_1.jpg' width='256px'>|<img src='test_images/ryan_output_2.jpg' width='256px'>|<img src='test_images/ryan_output_3.jpg' width='256px'>|
+|Cheez|<img src='test_images/cheez.png' width='256px'>|<img src='test_images/cheez_output_1.jpg' width='256px'>|<img src='test_images/cheez_output_2.jpg' width='256px'>|<img src='test_images/cheez_output_3.jpg' width='256px'>|
+|Herb|<img src='test_images/herb.png' width='256px'>|<img src='test_images/herb_output_1.jpg' width='256px'>|<img src='test_images/herb_output_2.jpg' width='256px'>|<img src='test_images/herb_output_3.jpg' width='256px'>|
+
