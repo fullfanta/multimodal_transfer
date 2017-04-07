@@ -14,6 +14,7 @@ To train network, I use MS coco dataset.
 $ cd real_time_style_transfer
 $ sh get_coco.sh
 ```
+- downloaded image is in 'data/train2014'.
 
 For stylization, pretrained VGG16 is necessary.
 ```
@@ -35,16 +36,23 @@ $ tensorboard --logdir=summary
 
 ### Freeze model
 ```
-$ sh freeze.sh
+$ sh freeze.sh 10000
 ```
-It generates pb file which contains weights as contant.
+- parameter is iteration number among saved check point files.
+- It generates pb file which contains weights as contant.
+
 
 ## Test
 ```
 $ python stylize.py --model=models/starry_night.pb --input_image=test_images/jolie.jpg
 ```
-It generates hierarchical stylized images and save them to 'test_images/jolie_output_1.jpg', 'test_images/jolie_output_2.jpg', and 'test_images/jolie_output_3.jpg'. Their sizes are 256, 512 and 1024 in short edge.
-
+- It generates hierarchical stylized images and save them to 'test_images/jolie_output_1.jpg', 'test_images/jolie_output_2.jpg', and 'test_images/jolie_output_3.jpg'. Their sizes are 256, 512 and 1024 in short edge.
+- Parameters:
+```
+--model : freezed model path
+--input_image : image file path to stylize
+--hierarchical_short_edges : three short edge length to generate images. (default is 256, 512, 1024)
+```
 
 ## Examples
 |    | Input | Output(256px) | Output(512px) | Output(1024px) |

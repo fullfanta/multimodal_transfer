@@ -54,21 +54,19 @@ def main():
                     producer_op_list=None
                 )
 
+    short_edges = [int(e) for e in args.hierarchical_short_edges.split(',')]
+
     # generate
     with tf.Session() as sess:
-        result_1, result_2, result_3 = sess.run([generated_image_1, generated_image_2, generated_image_3], feed_dict = {input_tensor : [input_image], short_edge_1 : 256, short_edge_2 : 512, short_edge_3 : 1024})
+        result_1, result_2, result_3 = sess.run([generated_image_1, generated_image_2, generated_image_3], feed_dict = {input_tensor : [input_image], short_edge_1 : short_edges[0], short_edge_2 : short_edges[1], short_edge_3 : short_edges[2]})
         result_1 = cv2.cvtColor(result_1[0], cv2.COLOR_BGR2RGB)
         result_2 = cv2.cvtColor(result_2[0], cv2.COLOR_BGR2RGB)
         result_3 = cv2.cvtColor(result_3[0], cv2.COLOR_BGR2RGB)
  
-        if args.output_image is None:
-            idx = args.input_image.rfind('.')
-            args.output_image = args.input_image[:idx] + '_output.jpg'
-
-        idx = args.output_image.rfind('.')
-        output_name_1 = args.output_image[:idx] + '_1.jpg'
-        output_name_2 = args.output_image[:idx] + '_2.jpg'
-        output_name_3 = args.output_image[:idx] + '_3.jpg'
+        idx = args.input_image.rfind('.')
+        output_name_1 = args.input_image[:idx] + '_output_1.jpg'
+        output_name_2 = args.input_image[:idx] + '_output_2.jpg'
+        output_name_3 = args.input_image[:idx] + '_output_3.jpg'
 
         cv2.imwrite(output_name_1, result_1)
         cv2.imwrite(output_name_2, result_2)
@@ -80,9 +78,9 @@ if __name__=='__main__':
     parser = argparse.ArgumentParser('Stylizer')
     parser.add_argument('--model', type=str, default='models/starry_night.pb')
     parser.add_argument('--input_image', type=str, default='./test_images/Aaron_Eckhart_0001.jpg')
-    parser.add_argument('--output_image', type=str)
-    parser.add_argument('--resize_ratio', type=int, default=1)
-    
+    parser.add_argument('--hierarchical_short_edges', type=str, default='256,512,1024')
+   
+
     args = parser.parse_args()  
 
     main()

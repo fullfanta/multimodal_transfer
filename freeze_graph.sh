@@ -1,1 +1,1 @@
-python freeze_graph.py --input_graph=summary/starry_night_graph_def.pb --input_checkpoint=summary/starry_night.ckpt-1000 --output_node_names=refine_subnet/resize_conv_1/output --output_graph=models/starry_night.pb
+python freeze_graph.py --input_graph=summary/starry_night_graph_def.pb --input_checkpoint=summary/starry_night.ckpt-$1 --output_node_names=refine_subnet/resize_conv_1/output --output_graph=models/starry_night.pb
