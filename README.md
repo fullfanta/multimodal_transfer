@@ -11,14 +11,14 @@ $ git clone https://github.com/fullfanta/multimodal_style_transfer.git
 ## Train
 To train network, I use MS coco dataset.
 ```
-$ cd real_time_style_transfer
-$ sh get_coco.sh
+$ cd multimodal_style_transfer
+$ bash get_coco.sh
 ```
 - downloaded image is in 'data/train2014'.
 
 For stylization, pretrained VGG16 is necessary.
 ```
-$ sh get_vgg16.sh
+$ bash get_vgg16.sh
 ```
 
 Then training is *SIMPLE*.
